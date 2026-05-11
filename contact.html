@@ -4,53 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - Seven Kitchen</title>
-    <link rel="stylesheet" href="style.css?v=1.2"> <!-- Ajout version pour vider le cache -->
+    <!-- On ajoute ?v=2 pour forcer le navigateur à oublier l'ancienne version buggée -->
+    <link rel="stylesheet" href="style.css?v=2">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     
     <style>
-        /* FORCE LE SCROLL VERTICAL */
+        /* --- DÉVERROUILLAGE DU SCROLL MOBILE --- */
         html, body {
             overflow-x: hidden !important;
-            overflow-y: auto !important; /* Force le scroll */
-            height: auto !important;
+            overflow-y: auto !important; /* Force le scroll vertical */
+            height: auto !important;     /* Empêche le blocage à 100% */
             min-height: 100vh !important;
             background-color: #0a0a0a;
             margin: 0;
             padding: 0;
-            -webkit-overflow-scrolling: touch;
+            -webkit-overflow-scrolling: touch; /* Scroll fluide iOS */
         }
 
         .main-wrapper {
-            height: auto !important;
-            min-height: 100vh;
-            /* On augmente le padding pour ne pas être mangé par la nav fixed */
-            padding: 140px 20px 80px 20px !important; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-sizing: border-box;
+            height: auto !important; /* Annule le 100vh du style.css */
+            min-height: 100vh !important;
+            /* Padding top important (150px) pour ne pas être sous la Nav fixed */
+            padding: 150px 20px 100px 20px !important; 
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            box-sizing: border-box !important;
         }
 
-        /* Conteneur principal */
+        /* --- CONTENEUR CONTACT --- */
         .contact-container {
             display: flex;
             gap: 40px;
             width: 100%;
             max-width: 1100px;
             margin-top: 20px;
-            flex-wrap: wrap; /* Permet d'empiler sur mobile */
+            flex-wrap: wrap; /* Empile les blocs sur mobile */
         }
 
         .contact-info, .contact-form { 
             flex: 1; 
-            min-width: 300px; /* Force l'empilement sur petit écran */
+            min-width: 300px; 
         }
 
         .info-card {
             background: rgba(255, 255, 255, 0.03) !important;
             border: 1px solid rgba(255, 255, 255, 0.1) !important;
             padding: 30px !important;
-            border-radius: 20px;
+            border-radius: 25px;
             text-align: left;
         }
 
@@ -59,20 +61,21 @@
             font-size: 1.5rem;
             margin-bottom: 25px;
             text-transform: uppercase;
-            font-weight: 800;
+            font-weight: 900;
         }
 
-        .info-item { display: flex; align-items: center; margin-bottom: 25px; }
+        .info-item { 
+            display: flex; 
+            align-items: center; 
+            margin-bottom: 25px; 
+        }
         
-        /* Correction des icônes */
+        /* Correction icônes images */
         .info-icon-img { 
-            width: 30px; 
-            height: 30px; 
-            margin-right: 15px; 
+            width: 32px; 
+            height: 32px; 
+            margin-right: 18px; 
             object-fit: contain;
-            /* Si les images ne chargent pas, on met un fond de secours pour voir le bloc */
-            background: rgba(255,215,0,0.1); 
-            border-radius: 5px;
         }
 
         .info-text span { display: block; font-size: 0.7rem; color: #888; text-transform: uppercase; }
@@ -81,21 +84,22 @@
         /* Champs formulaire */
         input, textarea {
             width: 100%;
-            padding: 15px;
+            padding: 16px;
             margin-bottom: 15px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: #fff;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 16px;
+            font-family: inherit;
         }
 
-        /* Carte Google Maps */
+        /* Google Maps */
         .map-section {
             width: 100%;
             max-width: 1100px;
-            margin-top: 40px;
-            border-radius: 20px;
+            margin-top: 50px;
+            border-radius: 25px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
@@ -103,14 +107,30 @@
         .map-container {
             width: 100%;
             height: 350px;
+            border: none;
             filter: grayscale(1) invert(0.9) contrast(1.2);
         }
 
-        /* Mobile specific fixes */
-        @media (max-width: 600px) {
-            .main-wrapper h2 { font-size: 2rem !important; }
-            .contact-container { gap: 20px; }
-            .info-card { padding: 20px !important; }
+        /* --- RESPONSIVE MOBILE --- */
+        @media (max-width: 768px) {
+            .main-wrapper {
+                padding-top: 130px !important; /* Ajustement nav mobile */
+            }
+            h2 { 
+                font-size: 2.2rem !important; 
+                text-align: center;
+                line-height: 1.1;
+            }
+            .contact-container {
+                flex-direction: column !important;
+            }
+            .contact-info, .contact-form {
+                width: 100%;
+            }
+            footer {
+                position: relative !important; /* Le footer suit le contenu sur mobile */
+                margin-top: 30px;
+            }
         }
     </style>
 </head>
@@ -126,10 +146,10 @@
     </nav>
 
     <div class="main-wrapper">
-        <h2 style="color:var(--gold-yellow); margin-bottom: 10px; font-size: 3rem; text-transform: uppercase;" data-aos="fade-down">NOUS CONTACTER</h2>
+        <h2 style="color:var(--gold-yellow); margin-bottom: 15px; font-weight: 900; text-transform: uppercase;" data-aos="fade-down">NOUS CONTACTER</h2>
 
         <div class="contact-container">
-            <!-- INFOS -->
+            <!-- INFOS GAUCHE -->
             <div class="contact-info" data-aos="fade-right">
                 <div class="info-card">
                     <h3 class="info-title">Seven Infos</h3>
@@ -148,14 +168,14 @@
                 </div>
             </div>
 
-            <!-- FORMULAIRE -->
+            <!-- FORMULAIRE DROITE -->
             <div class="contact-form" data-aos="fade-left">
                 <form id="contact-form">
                     <input type="text" name="nom" placeholder="Votre Nom" required>
                     <input type="email" name="email" placeholder="Votre Email" required>
                     <textarea name="message" rows="4" placeholder="Comment pouvons-nous vous régaler ?" required></textarea>
-                    <button type="submit" id="submit-btn" class="btn-street" style="width:100%; cursor: pointer;">Envoyer</button>
-                    <p id="status" style="margin-top: 10px; text-align: center;"></p>
+                    <button type="submit" id="submit-btn" class="btn-street" style="width:100%; cursor: pointer;">Envoyer le message</button>
+                    <p id="status" style="margin-top: 15px; text-align: center; font-size: 0.9rem;"></p>
                 </form>
             </div>
         </div>
@@ -164,38 +184,38 @@
         <div class="map-section" data-aos="fade-up">
             <iframe 
                 class="map-container"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2647.7713432095655!2d2.699318176840748!3d48.40334755580005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e5f48f936f4539%3A0x63351336037a346!2s7%20Rue%20D%C3%A9necourt%2C%2077300%20Fontainebleau!5e0!3m2!1sfr!2sfr!4v1700000000000" 
-                style="border:0;" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2647.7713432095655!2d2.699318176840748!3d48.40334755580005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e5f48f936f4539%3A0x63351336037a346!2s7%20Rue%20D%C3%A9necourt%2C%2077300%20Fontainebleau!5e0!3m2!1sfr!2sfr!4v1715421636000" 
                 allowfullscreen="" 
                 loading="lazy">
             </iframe>
         </div>
     </div>
 
-    <!-- MODAL SUCCÈS -->
-    <div id="popup-success" class="popup-overlay">
-        <div class="popup-content">
-            <span class="close-popup" onclick="closePopup()">×</span>
-            <h3 style="color:var(--gold-yellow); font-size: 2rem;">Validé !</h3>
-            <p style="margin-top:10px; color: #fff;">Message envoyé avec succès.</p>
-            <button class="btn-street" style="margin-top:25px; padding: 10px 40px;" onclick="closePopup()">Génial</button>
+    <!-- MODAL DE SUCCÈS -->
+    <div id="popup-success" class="popup-overlay" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; justify-content:center; align-items:center; backdrop-filter:blur(10px);">
+        <div class="popup-content" style="background:#111; padding:40px; border-radius:30px; border:1px solid var(--gold-yellow); text-align:center; max-width:400px; width:90%;">
+            <h3 style="color:var(--gold-yellow); font-size: 2rem; margin-bottom: 10px;">VALIDÉ !</h3>
+            <p style="color:#fff; margin-bottom: 25px;">Votre message a bien été envoyé.</p>
+            <button class="btn-street" onclick="closePopup()">Génial</button>
         </div>
     </div>
+
+    <footer><p>© 2026 SEVEN KITCHEN - 7 RUE DÉNECOURT - OPEN 7/7</p></footer>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 800, once: true });
 
         const form = document.getElementById("contact-form");
-        const popup = document.getElementById("popup-success");
         const btn = document.getElementById("submit-btn");
+        const popup = document.getElementById("popup-success");
 
-        form.addEventListener("submit", async function(event) {
-            event.preventDefault();
-            btn.innerHTML = "Envoi...";
+        form.addEventListener("submit", async function(e) {
+            e.preventDefault();
+            btn.innerHTML = "Envoi en cours...";
             btn.disabled = true;
 
-            const data = new FormData(event.target);
+            const data = new FormData(e.target);
             try {
                 const response = await fetch("https://formspree.io/f/xnjwlzlr", {
                     method: 'POST',
@@ -206,10 +226,10 @@
                     popup.style.display = "flex";
                     form.reset();
                 }
-            } catch (error) {
-                alert("Erreur lors de l'envoi");
+            } catch (err) {
+                document.getElementById("status").innerHTML = "Erreur lors de l'envoi.";
             }
-            btn.innerHTML = "Envoyer";
+            btn.innerHTML = "Envoyer le message";
             btn.disabled = false;
         });
 
