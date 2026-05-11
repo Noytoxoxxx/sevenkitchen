@@ -143,12 +143,13 @@
     <div id="popup-success" class="popup-overlay">
         <div class="popup-content">
             <div class="success-animation">
-                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <!-- On force la visibilité du SVG ici -->
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" style="display:block; margin: 0 auto;">
                     <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
                     <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
                 </svg>
             </div>
-            <h3 style="color:var(--gold-yellow); font-size: 1.8rem; margin-top: 10px;">MESSAGE ENVOYÉ</h3>
+            <h3 style="color:var(--gold-yellow); font-size: 1.8rem; margin-top: 10px; font-weight: 900;">MESSAGE ENVOYÉ</h3>
             <p style="color:#bbb; margin-bottom: 25px;">On revient vers vous très vite !</p>
             <button class="btn-street" onclick="closePopup()">Génial</button>
         </div>
