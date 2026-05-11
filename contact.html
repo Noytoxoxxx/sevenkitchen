@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - Seven Kitchen</title>
-    <link rel="stylesheet" href="style.css?v=4">
+    <link rel="stylesheet" href="style.css?v=3">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     
     <style>
@@ -27,7 +27,7 @@
             align-items: center !important;
         }
 
-        /* --- DESIGN --- */
+        /* --- DESIGN FORMULAIRE & INFOS --- */
         .contact-container {
             display: flex; gap: 40px; width: 100%; max-width: 1100px;
             margin-top: 20px; flex-wrap: wrap;
@@ -38,10 +38,12 @@
             border: 1px solid rgba(255, 255, 255, 0.1) !important;
             padding: 30px !important; border-radius: 25px;
         }
-        .info-title { color: #ebc044; font-size: 1.5rem; margin-bottom: 25px; font-weight: 900; text-transform: uppercase;}
+        .info-title { color: var(--gold-yellow); font-size: 1.5rem; margin-bottom: 25px; font-weight: 900; text-transform: uppercase;}
         .info-item { display: flex; align-items: center; margin-bottom: 25px; }
         .info-icon-img { width: 32px; height: 32px; margin-right: 18px; object-fit: contain; }
-        
+        .info-text span { display: block; font-size: 0.7rem; color: #888; text-transform: uppercase; }
+        .info-text p { color: #fff; font-size: 0.95rem; margin: 0; }
+
         input, textarea {
             width: 100%; padding: 16px; margin-bottom: 15px;
             background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
@@ -49,73 +51,39 @@
         }
 
         /* --- ANIMATION DE LA CROIX (CHECKMARK) --- */
-        .success-icon {
-            width: 80px;
-            height: 80px;
-            position: relative;
-            margin: 0 auto 20px;
-        }
-
+        .success-animation { margin: 20px auto; }
         .checkmark {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            display: block;
-            stroke-width: 3;
-            stroke: #ebc044; /* Couleur Or */
-            stroke-miterlimit: 10;
-            box-shadow: inset 0px 0px 0px #ebc044;
+            width: 80px; height: 80px; border-radius: 50%;
+            display: block; stroke-width: 2; stroke: #ebc044;
+            stroke-miterlimit: 10; box-shadow: inset 0px 0px 0px #ebc044;
             animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
         }
-
         .checkmark__circle {
-            stroke-dasharray: 166;
-            stroke-dashoffset: 166;
-            stroke-width: 3;
-            stroke-miterlimit: 10;
-            stroke: #ebc044;
-            fill: none;
-            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+            stroke-dasharray: 166; stroke-dashoffset: 166;
+            stroke-width: 2; stroke-miterlimit: 10; stroke: #ebc044;
+            fill: none; animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
         }
-
         .checkmark__check {
-            transform-origin: 50% 50%;
-            stroke-dasharray: 48;
-            stroke-dashoffset: 48;
-            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+            transform-origin: 50% 50%; stroke-dasharray: 48;
+            stroke-dashoffset: 48; animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
         }
-
-        @keyframes stroke {
-            100% { stroke-dashoffset: 0; }
-        }
-
-        @keyframes scale {
-            0%, 100% { transform: none; }
-            50% { transform: scale3d(1.1, 1.1, 1); }
-        }
-
-        @keyframes fill {
-            100% { box-shadow: inset 0px 0px 0px 40px transparent; }
-        }
+        @keyframes stroke { 100% { stroke-dashoffset: 0; } }
+        @keyframes scale { 0%, 100% { transform: none; } 50% { transform: scale3d(1.1, 1.1, 1); } }
+        @keyframes fill { 100% { box-shadow: inset 0px 0px 0px 30px transparent; } }
 
         /* --- MODAL --- */
         .popup-overlay {
             display:none; position: fixed; top:0; left:0; width:100%; height:100%;
-            background:rgba(0,0,0,0.9); z-index:9999; justify-content:center;
-            align-items:center; backdrop-filter:blur(10px);
+            background:rgba(0,0,0,0.85); z-index:9999; justify-content:center;
+            align-items:center; backdrop-filter:blur(8px);
         }
         .popup-content {
             background:#111; padding:40px; border-radius:30px;
-            border:1px solid rgba(235, 192, 68, 0.4); text-align:center;
-            max-width:350px; width:90%;
+            border:1px solid rgba(235, 192, 68, 0.3); text-align:center;
+            max-width:400px; width:90%;
         }
 
-        .map-section {
-            width: 100%; max-width: 1100px; margin-top: 50px;
-            border-radius: 25px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .map-container { width: 100%; height: 350px; border: none; filter: grayscale(1) invert(0.9); }
-
+        /* Responsive */
         @media (max-width: 768px) {
             .main-wrapper { padding-top: 120px !important; }
             .contact-container { flex-direction: column !important; }
@@ -134,7 +102,7 @@
     </nav>
 
     <div class="main-wrapper">
-        <h2 style="color:#ebc044; margin-bottom: 15px; font-weight: 900; text-transform: uppercase;" data-aos="fade-down">NOUS CONTACTER</h2>
+        <h2 style="color:var(--gold-yellow); margin-bottom: 15px; font-weight: 900; text-transform: uppercase;" data-aos="fade-down">NOUS CONTACTER</h2>
 
         <div class="contact-container">
             <div class="contact-info" data-aos="fade-right">
@@ -171,18 +139,18 @@
         </div>
     </div>
 
-    <!-- MODAL AVEC LA CROIX ANIMÉE -->
+    <!-- MODAL AVEC ANIMATION DE VALIDATION -->
     <div id="popup-success" class="popup-overlay">
         <div class="popup-content">
-            <div class="success-icon">
+            <div class="success-animation">
                 <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
                     <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
                     <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
                 </svg>
             </div>
-            <h3 style="color:#ebc044; font-size: 1.8rem; margin-top: 10px; font-weight: 900;">ENVOYÉ !</h3>
-            <p style="color:#fff; margin-bottom: 25px;">On s'occupe de vous.</p>
-            <button class="btn-street" onclick="closePopup()" style="padding: 10px 30px;">FERMER</button>
+            <h3 style="color:var(--gold-yellow); font-size: 1.8rem; margin-top: 10px;">MESSAGE ENVOYÉ</h3>
+            <p style="color:#bbb; margin-bottom: 25px;">On revient vers vous très vite !</p>
+            <button class="btn-street" onclick="closePopup()">Génial</button>
         </div>
     </div>
 
@@ -197,7 +165,6 @@
         form.addEventListener("submit", async function(e) {
             e.preventDefault();
             btn.innerHTML = "Envoi...";
-            btn.style.opacity = "0.7";
             btn.disabled = true;
 
             try {
@@ -211,10 +178,9 @@
                     form.reset();
                 }
             } catch (err) {
-                document.getElementById("status").innerHTML = "Erreur réseau.";
+                document.getElementById("status").innerHTML = "Erreur de connexion.";
             }
             btn.innerHTML = "Envoyer le message";
-            btn.style.opacity = "1";
             btn.disabled = false;
         });
 
