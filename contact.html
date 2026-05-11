@@ -4,133 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - Seven Kitchen</title>
-    <!-- On ajoute ?v=2 pour forcer le navigateur à oublier l'ancienne version buggée -->
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=3">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     
     <style>
-        /* --- DÉVERROUILLAGE DU SCROLL MOBILE --- */
+        /* --- DÉVERROUILLAGE DU SCROLL --- */
         html, body {
             overflow-x: hidden !important;
-            overflow-y: auto !important; /* Force le scroll vertical */
-            height: auto !important;     /* Empêche le blocage à 100% */
+            overflow-y: auto !important;
+            height: auto !important;
             min-height: 100vh !important;
             background-color: #0a0a0a;
-            margin: 0;
-            padding: 0;
-            -webkit-overflow-scrolling: touch; /* Scroll fluide iOS */
+            -webkit-overflow-scrolling: touch;
         }
 
         .main-wrapper {
-            height: auto !important; /* Annule le 100vh du style.css */
+            height: auto !important;
             min-height: 100vh !important;
-            /* Padding top important (150px) pour ne pas être sous la Nav fixed */
             padding: 150px 20px 100px 20px !important; 
             display: flex !important;
             flex-direction: column !important;
             align-items: center !important;
-            justify-content: flex-start !important;
-            box-sizing: border-box !important;
         }
 
-        /* --- CONTENEUR CONTACT --- */
+        /* --- DESIGN FORMULAIRE & INFOS --- */
         .contact-container {
-            display: flex;
-            gap: 40px;
-            width: 100%;
-            max-width: 1100px;
-            margin-top: 20px;
-            flex-wrap: wrap; /* Empile les blocs sur mobile */
+            display: flex; gap: 40px; width: 100%; max-width: 1100px;
+            margin-top: 20px; flex-wrap: wrap;
         }
-
-        .contact-info, .contact-form { 
-            flex: 1; 
-            min-width: 300px; 
-        }
-
+        .contact-info, .contact-form { flex: 1; min-width: 300px; }
         .info-card {
             background: rgba(255, 255, 255, 0.03) !important;
             border: 1px solid rgba(255, 255, 255, 0.1) !important;
-            padding: 30px !important;
-            border-radius: 25px;
-            text-align: left;
+            padding: 30px !important; border-radius: 25px;
         }
-
-        .info-title {
-            color: var(--gold-yellow);
-            font-size: 1.5rem;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-            font-weight: 900;
-        }
-
-        .info-item { 
-            display: flex; 
-            align-items: center; 
-            margin-bottom: 25px; 
-        }
-        
-        /* Correction icônes images */
-        .info-icon-img { 
-            width: 32px; 
-            height: 32px; 
-            margin-right: 18px; 
-            object-fit: contain;
-        }
-
+        .info-title { color: var(--gold-yellow); font-size: 1.5rem; margin-bottom: 25px; font-weight: 900; text-transform: uppercase;}
+        .info-item { display: flex; align-items: center; margin-bottom: 25px; }
+        .info-icon-img { width: 32px; height: 32px; margin-right: 18px; object-fit: contain; }
         .info-text span { display: block; font-size: 0.7rem; color: #888; text-transform: uppercase; }
-        .info-text p { color: #fff; font-size: 0.95rem; margin: 0; font-weight: 500; }
+        .info-text p { color: #fff; font-size: 0.95rem; margin: 0; }
 
-        /* Champs formulaire */
         input, textarea {
-            width: 100%;
-            padding: 16px;
-            margin-bottom: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fff;
-            border-radius: 12px;
-            font-size: 16px;
-            font-family: inherit;
+            width: 100%; padding: 16px; margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff; border-radius: 12px; font-size: 16px;
         }
 
-        /* Google Maps */
-        .map-section {
-            width: 100%;
-            max-width: 1100px;
-            margin-top: 50px;
-            border-radius: 25px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        /* --- ANIMATION DE LA CROIX (CHECKMARK) --- */
+        .success-animation { margin: 20px auto; }
+        .checkmark {
+            width: 80px; height: 80px; border-radius: 50%;
+            display: block; stroke-width: 2; stroke: #ebc044;
+            stroke-miterlimit: 10; box-shadow: inset 0px 0px 0px #ebc044;
+            animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+        }
+        .checkmark__circle {
+            stroke-dasharray: 166; stroke-dashoffset: 166;
+            stroke-width: 2; stroke-miterlimit: 10; stroke: #ebc044;
+            fill: none; animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+        .checkmark__check {
+            transform-origin: 50% 50%; stroke-dasharray: 48;
+            stroke-dashoffset: 48; animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+        }
+        @keyframes stroke { 100% { stroke-dashoffset: 0; } }
+        @keyframes scale { 0%, 100% { transform: none; } 50% { transform: scale3d(1.1, 1.1, 1); } }
+        @keyframes fill { 100% { box-shadow: inset 0px 0px 0px 30px transparent; } }
+
+        /* --- MODAL --- */
+        .popup-overlay {
+            display:none; position: fixed; top:0; left:0; width:100%; height:100%;
+            background:rgba(0,0,0,0.85); z-index:9999; justify-content:center;
+            align-items:center; backdrop-filter:blur(8px);
+        }
+        .popup-content {
+            background:#111; padding:40px; border-radius:30px;
+            border:1px solid rgba(235, 192, 68, 0.3); text-align:center;
+            max-width:400px; width:90%;
         }
 
-        .map-container {
-            width: 100%;
-            height: 350px;
-            border: none;
-            filter: grayscale(1) invert(0.9) contrast(1.2);
-        }
-
-        /* --- RESPONSIVE MOBILE --- */
+        /* Responsive */
         @media (max-width: 768px) {
-            .main-wrapper {
-                padding-top: 130px !important; /* Ajustement nav mobile */
-            }
-            h2 { 
-                font-size: 2.2rem !important; 
-                text-align: center;
-                line-height: 1.1;
-            }
-            .contact-container {
-                flex-direction: column !important;
-            }
-            .contact-info, .contact-form {
-                width: 100%;
-            }
-            footer {
-                position: relative !important; /* Le footer suit le contenu sur mobile */
-                margin-top: 30px;
-            }
+            .main-wrapper { padding-top: 120px !important; }
+            .contact-container { flex-direction: column !important; }
         }
     </style>
 </head>
@@ -149,58 +105,54 @@
         <h2 style="color:var(--gold-yellow); margin-bottom: 15px; font-weight: 900; text-transform: uppercase;" data-aos="fade-down">NOUS CONTACTER</h2>
 
         <div class="contact-container">
-            <!-- INFOS GAUCHE -->
             <div class="contact-info" data-aos="fade-right">
                 <div class="info-card">
                     <h3 class="info-title">Seven Infos</h3>
                     <div class="info-item">
-                        <img src="img/pin.png" alt="Adresse" class="info-icon-img">
+                        <img src="img/pin.png" alt="." class="info-icon-img">
                         <div class="info-text"><span>Adresse</span><p>7 Rue Dénecourt, Fontainebleau</p></div>
                     </div>
                     <div class="info-item">
-                        <img src="img/telephone.png" alt="Téléphone" class="info-icon-img">
+                        <img src="img/telephone.png" alt="." class="info-icon-img">
                         <div class="info-text"><span>Téléphone</span><p>01 60 39 00 01</p></div>
                     </div>
                     <div class="info-item">
-                        <img src="img/horaires.png" alt="Horaires" class="info-icon-img">
+                        <img src="img/horaires.png" alt="." class="info-icon-img">
                         <div class="info-text"><span>Horaires</span><p>Ouvert 7j/7 : 11h30 - 23h00</p></div>
                     </div>
                 </div>
             </div>
 
-            <!-- FORMULAIRE DROITE -->
             <div class="contact-form" data-aos="fade-left">
                 <form id="contact-form">
                     <input type="text" name="nom" placeholder="Votre Nom" required>
                     <input type="email" name="email" placeholder="Votre Email" required>
                     <textarea name="message" rows="4" placeholder="Comment pouvons-nous vous régaler ?" required></textarea>
                     <button type="submit" id="submit-btn" class="btn-street" style="width:100%; cursor: pointer;">Envoyer le message</button>
-                    <p id="status" style="margin-top: 15px; text-align: center; font-size: 0.9rem;"></p>
+                    <p id="status" style="margin-top: 15px; text-align: center; color: #888;"></p>
                 </form>
             </div>
         </div>
 
-        <!-- GOOGLE MAPS -->
         <div class="map-section" data-aos="fade-up">
-            <iframe 
-                class="map-container"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2647.7713432095655!2d2.699318176840748!3d48.40334755580005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e5f48f936f4539%3A0x63351336037a346!2s7%20Rue%20D%C3%A9necourt%2C%2077300%20Fontainebleau!5e0!3m2!1sfr!2sfr!4v1715421636000" 
-                allowfullscreen="" 
-                loading="lazy">
-            </iframe>
+            <iframe class="map-container" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2647.7713432095655!2d2.699318176840748!3d48.40334755580005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e5f48f936f4539%3A0x63351336037a346!2s7%20Rue%20D%C3%A9necourt%2C%2077300%20Fontainebleau!5e0!3m2!1sfr!2sfr!4v1715421636000" loading="lazy"></iframe>
         </div>
     </div>
 
-    <!-- MODAL DE SUCCÈS -->
-    <div id="popup-success" class="popup-overlay" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; justify-content:center; align-items:center; backdrop-filter:blur(10px);">
-        <div class="popup-content" style="background:#111; padding:40px; border-radius:30px; border:1px solid var(--gold-yellow); text-align:center; max-width:400px; width:90%;">
-            <h3 style="color:var(--gold-yellow); font-size: 2rem; margin-bottom: 10px;">VALIDÉ !</h3>
-            <p style="color:#fff; margin-bottom: 25px;">Votre message a bien été envoyé.</p>
+    <!-- MODAL AVEC ANIMATION DE VALIDATION -->
+    <div id="popup-success" class="popup-overlay">
+        <div class="popup-content">
+            <div class="success-animation">
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+            </div>
+            <h3 style="color:var(--gold-yellow); font-size: 1.8rem; margin-top: 10px;">MESSAGE ENVOYÉ</h3>
+            <p style="color:#bbb; margin-bottom: 25px;">On revient vers vous très vite !</p>
             <button class="btn-street" onclick="closePopup()">Génial</button>
         </div>
     </div>
-
-    <footer><p>© 2026 SEVEN KITCHEN - 7 RUE DÉNECOURT - OPEN 7/7</p></footer>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
@@ -212,14 +164,13 @@
 
         form.addEventListener("submit", async function(e) {
             e.preventDefault();
-            btn.innerHTML = "Envoi en cours...";
+            btn.innerHTML = "Envoi...";
             btn.disabled = true;
 
-            const data = new FormData(e.target);
             try {
                 const response = await fetch("https://formspree.io/f/xnjwlzlr", {
                     method: 'POST',
-                    body: data,
+                    body: new FormData(e.target),
                     headers: { 'Accept': 'application/json' }
                 });
                 if (response.ok) {
@@ -227,7 +178,7 @@
                     form.reset();
                 }
             } catch (err) {
-                document.getElementById("status").innerHTML = "Erreur lors de l'envoi.";
+                document.getElementById("status").innerHTML = "Erreur de connexion.";
             }
             btn.innerHTML = "Envoyer le message";
             btn.disabled = false;
